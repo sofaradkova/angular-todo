@@ -5,11 +5,9 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   template: `
-    <p>
-      input-button-unit works! {{title}}
-    </p>
-    <input [value] = title (keyup.enter)="changeTitle(getInputValue($event))">
-    <button (click)="changeTitle('button clicked')">
+  {{title}}
+    <input #inputElementRef [value] = title (keyup.enter)="changeTitle(getInputValue($event))">
+    <button (click)="changeTitle(inputElementRef.value)">
       save
     </button>
   `,
