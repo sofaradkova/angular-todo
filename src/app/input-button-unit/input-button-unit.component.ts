@@ -1,13 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-input-button-unit',
   standalone: true,
   imports: [],
   template: `
-  {{title}}
-    <input #inputElementRef [value] = title (keyup.enter)="changeTitle(getInputValue($event))">
-    <button (click)="changeTitle(inputElementRef.value)">
+    <input #inputElementRef [value] = title (keyup.enter)="submitValue(getInputValue($event))" class="todo-input">
+    <button (click)="submitValue(inputElementRef.value)" class="btn">
       save
     </button>
   `,
@@ -23,7 +22,9 @@ export class InputButtonUnitComponent {
     return (event.target as HTMLInputElement).value;
   }
 
-  changeTitle(newTitle: string) {
-    this.title = newTitle;
+  submitValue(newTitle: string) {
+    this.submit.emit(newTitle);
   }
+
+  @Output() submit: EventEmitter<string> = new EventEmitter<string>();
 }
